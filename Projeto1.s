@@ -1,21 +1,19 @@
-
-#---------------------------------------------  ---------------------------------------------
 .data
 
 quantidade_times:   .byte 10
-pula_linha:        .asciiz "\n"
-tamanho_nome:		  .byte 20
+pula_linha:         .asciiz "\n"
+tamanho_nome:		    .byte 20
 
 # Textos do Menu Principal
-bem_vindo:          .asciiz "\nBem-vindo ao LOL"
-titulo:			    .asciiz "Sistema para inscrição e controle de tabela de jogos"
-opcao1: 			.asciiz "\n1.Registrar um time;\n"
-opcao2:			    .asciiz "2.Registrar resultado;\n"
-opcao3:			    .asciiz	"3.Editar as informações dos times;"
-opcao4:			    .asciiz	"4.Gerar o resultado do campeonato na fase eliminatória."
-opcao5: 			.asciiz "5.Sair\n"
-entrada:			.asciiz "\nQual das opcoes voce deseja realizar? "
-nao_encontrado: 	.asciiz "Opcao nao encontrada. Informe uma opcao valida"
+bem_vindo:          .asciiz "\nBem-vindo ao Circuito Brasileiro de League of Legends"
+titulo:			        .asciiz "Sistema para inscrição e controle de tabela de jogos"
+opcao1: 		      	.asciiz "\n1.Registrar um time;\n"
+opcao2:			        .asciiz "2.Registrar resultado;\n"
+opcao3:			        .asciiz	"3.Editar as informações dos times;"
+opcao4:			        .asciiz	"4.Gerar o resultado do campeonato na fase eliminatória."
+opcao5: 			      .asciiz "5.Sair\n"
+entrada:			      .asciiz "\nQual das opcoes voce deseja realizar? "
+nao_encontrado: 	  .asciiz "Opcao nao encontrada. Informe uma opcao valida"
 
 # Textos do Menu de Edição
 opcao_editar_1:     .asciiz "1. Alterar o nome de um time;"
@@ -25,7 +23,7 @@ opcao_editar_4:     .asciiz "4. Alterar a derrota de um time;"
 
 # Textos para senha
 informe_senha:	    .asciiz "\nDigite a senha de 6 digitos: "
-senha_incorreta:	.asciiz "\nSenha incorreta"
+senha_incorreta:	  .asciiz "\nSenha incorreta"
 
 # Textos para perguntar qual o time vencedor e qual o time perdedor
 perguntar_time_vencedor:	.asciiz "\nDigite o numero de qual time ganhou?"
@@ -35,8 +33,8 @@ perguntar_time_perdedor:	.asciiz "\nDigite o numero de qual time perdeu?"
 .globl autenticar
 
   autenticar:
-    la $a0, bem_vindo           # Imprime o "\nBem-vindo ao LOL"
-    li $v0, 4
+    la $a0, bem_vindo
+    li $v0, 4                       # Imprime o "Bem-vindo ao Circuito Brasileiro de League of Legends"
     syscall
   
     la $a0, informe_senha
@@ -131,7 +129,7 @@ perguntar_time_perdedor:	.asciiz "\nDigite o numero de qual time perdeu?"
     la $a1, tamanho_nome 
     syscall
 
-	  la $a0, time1                   # Le o time 1
+    la $a0, time1                   # Le o time 1
 	  syscall 
 
     la $a0, time2                   # Le o time 2
@@ -355,93 +353,89 @@ LOOP_3:
 
 	bne $t0, 10, LOOP_3
 
-	#printar "qual time quer trocar o nome?"
-	la $a0, menuItem3_1_1
+	la $a0, menuItem3_1_1       	#printar "qual time quer trocar o nome?"
 	li $v0, 4
 	syscall
 
-	# Receber valor
-	li $v0, 5
+	li $v0, 5             	# Receber valor
 	syscall
 	add $t0, $, $v0
 
-	#printar "qual o nome?"
-	la $a0, menuItem3_1_2
+	la $a0, menuItem3_1_2     #printar "qual o nome?"
 	li $v0, 4
 	syscall
 
-	# Carrega instrucao de leitura
-	li $v0, 8
+	li $v0, 8                     # Carrega instrucao de leitura
 	la $a1, timeCharSize
 
 	#recupera $ra
 	lw $ra, 0($sp)
 	add $sp, $sp, 4
 	
-leNovoNome:
+novo_nome_time:
     li $t1,1
-    bne $t0, $t1, leNovoNome2
-	la $a0, time1
-	syscall 
+    bne $t0, $t1, novo_nome_2
+	  la $a0, time1
+  	syscall 
     jr $ra
 
-leNovoNome2:
+novo_nome_time2:
     li $t1,2
-    bne $t0, $t1, leNovoNome3
-	la $a0, time2
-	syscall 
+    bne $t0, $t1, novo_nome_3
+	  la $a0, time2
+	  syscall 
     jr $ra
 
-leNovoNome3:
+novo_nome_time3:
     li $t1,3
-    bne $t0, $t1, leNovoNome4
-	la $a0, time3
-	syscall 
+    bne $t0, $t1, novo_nome_4
+	  la $a0, time3
+	  syscall 
     jr $ra
 
-leNovoNome4:
+novo_nome_time4:
     li $t1,4
-    bne $t0, $t1, leNovoNome5
-	la $a0, time4
-	syscall 
+    bne $t0, $t1, novo_nome_5
+    la $a0, time4
+  	syscall 
     jr $ra
 
-leNovoNome5:
+novo_nome_time5:
     li $t1,5
-    bne $t0, $t1, leNovoNome6
-	la $a0, time5
-	syscall 
+    bne $t0, $t1, novo_nome_6
+    la $a0, time5
+    syscall 
     jr $ra
 
-leNovoNome6:
+novo_nome_time6:
     li $t1,6
-    bne $t0, $t1, leNovoNome7
-	la $a0, time6
-	syscall 
+    bne $t0, $t1, novo_nome_7
+    la $a0, time6
+    syscall 
     jr $ra
 
-leNovoNome7:
+novo_nome_time7:
     li $t1,7
-    bne $t0, $t1, leNovoNome8
-	la $a0, time7
-	syscall 
+    bne $t0, $t1, novo_nome_time8
+    la $a0, time7
+    syscall 
     jr $ra
 
-leNovoNome8:
+novo_nome_time8:
     li $t1,8
-    bne $t0, $t1, leNovoNome9
-	la $a0, time8
-	syscall 
+    bne $t0, $t1, novo_nome_time9
+    la $a0, time8
+    syscall 
     jr $ra
 
-leNovoNome9:
+novo_nome_time9:
     li $t1,9
-    bne $t0, $t1, leNovoNome10
-	la $a0, time9
-	syscall 
+    bne $t0, $t1,novo_nome_time10
+  
+    la $a0, time9
+    syscall 
     jr $ra
-
-leNovoNome10:
-	la $a0, time10
-	syscall 
+novo_nome_time10:
+    la $a0, time10
+    syscall 
     jr $ra
