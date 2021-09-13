@@ -3,6 +3,7 @@
 .data
 
 quantidade_times:   .byte 10
+pula_linha:        .asciiz "\n"
 tamanho_nome:		  .byte 20
 
 # Textos do Menu Principal
